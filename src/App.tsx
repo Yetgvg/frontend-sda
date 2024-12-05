@@ -9,6 +9,7 @@ import Login from './pages/login/Login';
 import CadastroPage from './pages/cadastro/Cadastro';
 import Home from './pages/home/Home';
 import AtualizarUsuarioPage from './pages/atualizaUser/AtualizarUsuarioPage';
+import TermosPage from './pages/termospendentes/Termo_Pendente';
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/home" element={<Home />} />
+          <Route path='/termos' element={<TermosPage/>}/>
           <Route path="/cadastro" element={<CadastroPage />} />
           <Route path="/atualizar" element={<AtualizarUsuarioPage />} />
           <Route path="/admin" element={<PrivateRoute role="admin"><AdminPage /></PrivateRoute>} />

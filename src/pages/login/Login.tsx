@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Atualizado para useNavigate
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Usando useNavigate
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,14 +18,24 @@ const LoginPage: React.FC = () => {
         senha,
       });
 
-      // Salvando o token no localStorage
-      const { token } = response.data;
-      localStorage.setItem('token', token);
+      const { status, termo, token, idUsuario } = response.data;
 
-      // Redirecionando para a tela principal
-      alert('Login realizado com sucesso!');
-      navigate('/Home'); // Redireciona usando navigate
+      if (status === 'pendente') {
+        console.log(response.data)
+        // Salva o ID do usuário temporariamente para aceitar os termos
+        localStorage.setItem('userId', idUsuario);
 
+        // Redirecionar para a página de termos pendentes
+        navigate('/termos', { state: { termo } });
+      } else {
+        // Salva o token e o ID do usuário no localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', idUsuario);
+
+        // Redirecionando para a tela principal
+        alert('Login realizado com sucesso!');
+        navigate('/home');
+      }
     } catch (error: any) {
       // Tratamento de erros
       if (error.response) {
@@ -37,7 +47,7 @@ const LoginPage: React.FC = () => {
   };
 
   const navigateToCadastro = () => {
-    navigate('/cadastro'); // Redireciona para a tela de cadastro
+    navigate('/cadastro');
   };
 
   return (

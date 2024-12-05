@@ -75,12 +75,6 @@ const CadastroPage: React.FC = () => {
 
       const idUsuario = responseUsuario.data.id; // Pegue o ID do usuário criado
 
-      // Segunda requisição: Importando o usuário após a criação
-      await axios.post('http://localhost:3003/importar', {
-        email,
-        senha,
-      });
-
       // Agora, registrar os consentimentos dos termos aceitos
       if (termos) {
         // Enviar consentimentos dos termos obrigatórios
@@ -90,6 +84,7 @@ const CadastroPage: React.FC = () => {
             id_usuario: idUsuario,
             id_termo: termos.id, // O ID do termo, você pode ter que ajustar conforme sua estrutura
             aceito,
+            confirmado: true
           });
         }
 
@@ -100,6 +95,7 @@ const CadastroPage: React.FC = () => {
             id_usuario: idUsuario,
             id_termo: termos.id, // O ID do termo, ajuste conforme necessário
             aceito,
+            confirmado: true
           });
         }
       }
