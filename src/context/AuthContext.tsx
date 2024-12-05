@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { useNavigate } from 'react-router-dom';  // Importe o useNavigate
 
 interface User {
   id: number;
@@ -18,6 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();  // Cria o hook de navegação
 
   useEffect(() => {
     // Tente carregar o usuário do localStorage ou de um estado persistido
@@ -35,6 +37,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user'); // Limpe o localStorage ao deslogar
+    navigate('/'); // Redireciona para a página de login após o logout
   };
 
   return (

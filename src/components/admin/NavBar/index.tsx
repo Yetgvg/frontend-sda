@@ -12,11 +12,8 @@ const Navbar: React.FC = () => {
         <div className="navbar-logo">segurança</div>
       </header>
       <Menu right>
-          <a className="menu-item" href="/">
+          <a className="menu-item" href="/Home">
             Home
-          </a>
-          <a className="menu-item" href="/users">
-            Users
           </a>
           <button onClick={() => logout()}>Sair</button>
       </Menu>
